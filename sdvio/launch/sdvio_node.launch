@@ -1,0 +1,9 @@
+<launch>
+	<arg name="config_path" default="$(find sdvio)/config/mynteye_config.yaml"/>
+	<arg name="sdvio_path" default="$(find sdvio)/output/"/>
+
+	<node name="sdvio_node" pkg="sdvio" type="sdvio_node" output="screen">
+		<param name="config_file" type="string" value="$(arg config_path)"/>
+		<param name="sdvio_file" type="string" value="$(arg sdvio_path)"/>
+	</node>
+</launch>

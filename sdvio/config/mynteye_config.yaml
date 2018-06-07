@@ -1,0 +1,58 @@
+%YAML:1.0
+
+#common parameters
+window_size: 1
+num_of_cam: 1
+imu_topic: "/imu"
+image_topic_left: "/left/image_raw_color"
+image_topic_right: "/right/image_raw_color"
+output_path: "/output"         # vins outputs will be wrttento vins_folder_path + output_path
+
+#camera calibration 
+model_type: PINHOLE
+camera_name: camera
+image_width: 752
+image_height: 480
+distortion_parameters:
+   k1: -4.9215364045317128e-01
+   k2: 4.7706462210281025e-01
+   p1: 0.
+   p2: 0.
+projection_parameters:
+   fx: 6.9683989755329958e+02
+   fy: 7.0852425211889431e+02
+   cx: 4.0412072749757999e+02
+   cy: 2.3900734568345044e+02
+
+estimate_extrinsic: 1 
+
+extrinsicRotation: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [0, -1, 0, 
+           1, 0, 0, 
+           0, 0, 1]
+#Translation from camera frame to imu frame, imu^T_cam
+extrinsicTranslation: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.00218296788001,-0.0441376819758, 0.0164]
+
+#feature traker paprameters
+max_cnt: 120            # max feature number in feature tracking
+min_dist: 30            # min distance between two features 
+freq: 10                # frequence (Hz) of publish tracking result. At least 10Hz for good 
+F_threshold: 1.0        # ransac threshold (pixel)
+
+#optimization parameters
+keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
+
+#imu parameters       The more accurate parameters you provide, the better performance
+acc_n: 0.2          # accelerometer measurement noise standard deviation. #0.2
+gyr_n: 0.02         # gyroscope measurement noise standard deviation.     #0.05
+acc_w: 0.0002         # accelerometer bias random work noise standard deviation.  #0.02
+gyr_w: 2.0e-5       # gyroscope bias random work noise standard deviation.     #4.0e-5
+g_norm: 9.81007     # gravity magnitude
+
